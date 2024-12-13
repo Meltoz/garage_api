@@ -9,5 +9,5 @@
 
 import router from '@adonisjs/core/services/router'
 
-const UsersController = () => import('#controllers/users_controller')
-router.resource('users', UsersController)
+const AnouncementController = () => import('#controllers/announcements_controller');
+router.resource('api/announcements', AnouncementController);
