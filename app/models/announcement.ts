@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@adonisjs/lucid/orm'
-import { FuelType } from '../enums/fuel-type.js'
+import { BaseModel, column, hasOne} from '@adonisjs/lucid/orm'
+import Car from '#models/car'
+import type { HasOne } from '@adonisjs/lucid/types/relations'
 
 export default class Announcement extends BaseModel {
   @column({ isPrimary: true })
@@ -18,18 +19,8 @@ export default class Announcement extends BaseModel {
   @column()
   declare content: string;
 
-  @column({columnName: 'fuelType'})
-  declare fuelType: FuelType;
-
-  @column()
-  declare brand: string;
-
-  @column()
-  declare model: string;
-
-  @column()
-  declare door?: number;
-
-  @column({columnName: 'gearbox'})
-  declare gearbox: string;
+  @hasOne(() => Car,{
+    foreignKey: 'announcementId'
+  })
+  public car!: HasOne<typeof Car>
 }
