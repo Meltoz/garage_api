@@ -16,8 +16,13 @@ export class AnnouncementService {
     getOne(id: number) {
         return Announcement.query().where('id', id).first();
     }
-    insert(announcement: Announcement) {
-        return Announcement.create(announcement);
+    async insert(announcement: Announcement) {
+      const car = announcement.car;
+      const newAnnouncement = await Announcement.create(announcement);
+      if (car) {
+        await newAnnouncement.related('car').create(car);
+      }
+      return newAnnouncement;
     }
     async delete(id: number) {
         const announcement = await Announcement.findOrFail(id);
