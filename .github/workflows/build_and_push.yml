@@ -22,17 +22,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Configuration du Node.js
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: 'npm'
-
-      # Installation des dépendances
-      - name: Install dependencies
-        run: npm install
-
       # Construire l'image Docker
       - name: Build Docker image
         run: docker build -t ${{env.REGISTRY}}/${{env.IMAGE_NAME}}:latest .
